@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import stockData from "@/data/nike_pegasus_size_stock.json";
 
 type StockStatus = "in_stock" | "low_stock" | "sold_out";
@@ -43,24 +44,19 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex min-h-screen w-[375px] flex-col bg-white">
-      {/* Photo */}
-      <div className="relative h-[375px] w-[375px] flex-shrink-0 overflow-hidden bg-gradient-to-b from-neutral-100 to-neutral-200">
-        <svg
-          viewBox="0 0 300 160"
-          className="absolute left-1/2 top-1/2 h-32 w-64 -translate-x-1/2 -translate-y-1/2 text-neutral-400"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={4}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M10 120 C 20 90, 60 70, 90 72 C 110 60, 150 40, 190 42 C 220 30, 255 35, 280 55 C 295 65, 295 90, 280 105 C 250 125, 60 130, 20 128 C 12 127, 8 124, 10 120 Z" />
-          <path d="M90 72 C 100 85, 120 95, 150 98" />
-          <path d="M190 42 C 195 60, 210 75, 230 82" />
-        </svg>
-        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[11px] text-neutral-400">
-          Product image placeholder
-        </span>
+      {/* Photo: fixed aspect-ratio box holds its space before the image loads */}
+      <div
+        className="relative w-[375px] flex-shrink-0 overflow-hidden bg-neutral-100"
+        style={{ aspectRatio: "1872 / 2340" }}
+      >
+        <Image
+          src="/images/pegasus-43.jpg"
+          alt="Nike Pegasus 43"
+          fill
+          priority
+          sizes="375px"
+          className="object-cover"
+        />
       </div>
 
       {/* Name, price, colorway */}
@@ -69,7 +65,7 @@ export default function Home() {
           {product.product_name}
         </h1>
         <p className="mt-0.5 text-sm text-neutral-500">{product.colorway}</p>
-        <p className="mt-1 text-base font-semibold text-neutral-900">
+        <p className="mt-1 h-6 font-sans text-base font-semibold leading-6 text-neutral-900">
           {priceFormatter.format(product.price)}
         </p>
       </div>

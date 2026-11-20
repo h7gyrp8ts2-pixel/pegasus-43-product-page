@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "description": "Performance budget for the Pegasus 43 phone product page, verified against real Chrome traces under throttled conditions. See TRACE-FINDINGS.md for the full measurement log.",
+  "testConditions": {
+    "viewport": { "width": 375, "height": 812, "deviceScaleFactor": 3, "isMobile": true },
+    "network": {
+      "preset": "Slow 4G",
+      "latencyMs": 150,
+      "downloadKbps": 1638.4,
+      "uploadKbps": 750
+    },
+    "cpuThrottlingRate": 4
+  },
+  "budgets": {
+    "layoutShift": {
+      "target": "[data-testid=\"size-grid\"] element (currently addressed by .grid.grid-cols-5 selector — no data-testid attribute exists in the markup yet)",
+      "maxCumulativeShiftPx": 0,
+      "measured": {
+        "baselineSvgPlaceholder_px": 0,
+        "realPhotoWithAspectRatioBox_px": 0,
+        "priceWithPreloadedFont_px": 0
+      },
+      "status": "pass"
+    },
+    "pageCLS": {
+      "maxScore": 0.1,
+      "measured": 0,
+      "status": "pass"
+    },
+    "firstContentfulPaint": {
+      "maxMs": 1800,
+      "measuredMs": "750-780 (next dev server; re-measure against a production build before trusting this number)",
+      "status": "pass (dev server)"
+    },
+    "productImage": {
+      "maxServedBytes": 150000,
+      "sourceFileBytes": 354431,
+      "nextImageServedBytes_1080w_q75": 52375,
+      "status": "pass (as served by next/image optimizer; the committed source file itself is larger and should be compressed before adding more images)"
+    },
+    "fontLoad": {
+      "maxLoadingDoneMs": 2000,
+      "measuredMs": "~1000",
+      "preloaded": true,
+      "sizeMatchedFallback": true,
+      "status": "pass"
+    }
+  },
+  "notes": [
+    "All measurements come from a Next.js dev server (`npm run dev`), not a production build. Dev-mode bundles more JS and compiles on first request, so load-event and FCP numbers here are pessimistic relative to production.",
+    "Zero layout-shift events were recorded by both the Layout Instability PerformanceObserver API and the raw Chrome trace file in every run (6 total runs across 3 experiments, 2 runs each)."
+  ]
+}

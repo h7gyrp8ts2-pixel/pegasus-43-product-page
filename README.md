@@ -16,7 +16,11 @@ A 375 px phone product page for the Nike Pegasus 43, built in Next.js.
 >
 > When it's done, start the dev server and tell me the link to open it in my browser.
 
-The photo, "Why we love it" copy, and sample reviews are placeholder content — they aren't in `nike_pegasus_size_stock.json`, which only covers size and stock data.
+The "Why we love it" copy and sample reviews are placeholder content — they aren't in `nike_pegasus_size_stock.json`, which only covers size and stock data.
+
+The product photo (`public/images/pegasus-43.jpg`) is a **Nike Pegasus 42 SE** stock photo, not the actual Pegasus 43, and a different colorway than this page's "Black/White-Volt". It's sourced from Nike's own CDN (`static.nike.com`) and used here as an explicitly-approved visual stand-in — see `PROMPT-NOTES.md` for how that was sourced and confirmed.
+
+See `TRACE-FINDINGS.md` for the Chrome performance-trace results (layout-shift measurements under throttled network/CPU conditions) and `speed-budget.json` for the performance budget those traces are checked against.
 
 ## Sold-out sizes and the stock list
 
